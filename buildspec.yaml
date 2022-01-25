@@ -1,0 +1,22 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+        nodejs: 12
+    commands:
+      - npm install -g aws-cdk
+      - npm install -g typescript
+      - cdk --version
+  pre_build:
+    commands:
+      - echo aws version...
+      - aws --version
+  build:
+    commands:
+      - echo Deploy started...
+      - echo Build CDK project...
+      - npm install
+      - npm run build
+      - npx cdk bootstrap aws://029909986479/us-east-1
+      - cdk deploy --require-approval never
+      - echo Deploy completed...
